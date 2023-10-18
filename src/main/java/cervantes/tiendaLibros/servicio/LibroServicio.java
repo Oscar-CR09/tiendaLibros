@@ -1,0 +1,37 @@
+package cervantes.tiendaLibros.servicio;
+
+import cervantes.tiendaLibros.modelo.Libro;
+import cervantes.tiendaLibros.repositorio.LibroRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+public class LibroServicio implements ILibroServicio{
+    @Autowired
+    private LibroRepositorio libroRepositorio;
+    @Override
+    public List<Libro> listarLibros() {
+        return libroRepositorio.findAll();
+
+    }
+
+    @Override
+    public Libro buscarLibroId(Integer idLibro) {
+        Libro libro = libroRepositorio.findById(idLibro).orElse(null);
+        return libro;
+    }
+
+    @Override
+    public void guardarLibro(Libro libro) {
+
+        libroRepositorio.save(libro);
+
+    }
+
+    @Override
+    public void eliminarLibro(Libro libro) {
+
+        libroRepositorio.delete(libro);
+        
+    }
+}
