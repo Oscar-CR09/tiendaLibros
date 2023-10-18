@@ -3,9 +3,11 @@ package cervantes.tiendaLibros.servicio;
 import cervantes.tiendaLibros.modelo.Libro;
 import cervantes.tiendaLibros.repositorio.LibroRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class LibroServicio implements ILibroServicio{
     @Autowired
     private LibroRepositorio libroRepositorio;
@@ -32,6 +34,6 @@ public class LibroServicio implements ILibroServicio{
     public void eliminarLibro(Libro libro) {
 
         libroRepositorio.delete(libro);
-        
+
     }
 }
