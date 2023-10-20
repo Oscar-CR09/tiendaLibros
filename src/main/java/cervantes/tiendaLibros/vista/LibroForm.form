@@ -27,7 +27,7 @@
           <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <scrollpane id="e2d2a">
+      <scrollpane id="e2d2a" binding="tabla">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -37,6 +37,9 @@
           <component id="85121" class="javax.swing.JTable" binding="tablaLibros" custom-create="true">
             <constraints/>
             <properties/>
+            <clientProperties>
+              <JTable.autoStartsEdit class="java.lang.Boolean" value="false"/>
+            </clientProperties>
           </component>
         </children>
       </scrollpane>

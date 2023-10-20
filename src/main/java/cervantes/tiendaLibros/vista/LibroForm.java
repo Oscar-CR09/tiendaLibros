@@ -14,6 +14,7 @@ public class LibroForm  extends JFrame {
     LibroServicio libroServicio;
     private JPanel panel;
     private JTable tablaLibros;
+    private JScrollPane tabla;
 
     private DefaultTableModel tablaModeloLibros;
 
@@ -43,9 +44,32 @@ public class LibroForm  extends JFrame {
         // TODO: place custom component creation code here
 
         this.tablaModeloLibros = new DefaultTableModel(0,5);
-        String[] cabeceros = {"Id","Libros","Autor","Precio","Exixtencia"};
+        String[] cabeceros = {"Id","Libros","Autor","Precio","Existencia"};
         this.tablaModeloLibros.setColumnIdentifiers(cabeceros);
-        //istanciar el objeto Jtable
+        //Instanciar el objeto Jtable
         this.tablaLibros = new JTable(tablaModeloLibros);
+        listarLibros();
+
     }
+
+    private void listarLibros(){
+        //limpira la tabla
+        tablaModeloLibros.setRowCount(0);
+        //obtener los libros
+        var libros = libroServicio.listarLibros();
+        libros.forEach((libro) -> {
+            Object[] renglonLibro = {
+                    libro.getIdLibro(),
+                    libro.getNombrelibro(),
+                    libro.getAutor(),
+                    libro.getPrecio(),
+                    libro.getExistencias()
+            };
+            this.tablaModeloLibros.addRow(renglonLibro);
+
+        });
+    }
+
+
 }
+
