@@ -15,6 +15,13 @@ public class LibroForm  extends JFrame {
     private JPanel panel;
     private JTable tablaLibros;
     private JScrollPane tabla;
+    private JTextField LibroTexto;
+    private JTextField textField1;
+    private JTextField precioTexto;
+    private JTextField ExistenciasTexto;
+    private JButton agregarButton;
+    private JButton modificarButton;
+    private JButton eliminarButton;
 
     private DefaultTableModel tablaModeloLibros;
 
@@ -24,6 +31,9 @@ public class LibroForm  extends JFrame {
         this.libroServicio = libroServicio;
         iniciarForma();
 
+        agregarButton.addActionListener(e -> {
+
+        });
     }
 
     private void iniciarForma(){
