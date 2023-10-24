@@ -48,7 +48,7 @@ public class LibroForm  extends JFrame {
                 cargarLibroSeleccionado();
             }
         });
-        modificarButton.addActionListener(new ActionListener(e->modificarLibro()));
+        modificarButton.addActionListener(e->modificarLibro());
     }
 
 
@@ -115,7 +115,29 @@ public class LibroForm  extends JFrame {
     }
 
     private void modificarLibro(){
-        
+        if (this.idTexto.getText().equals("")){
+            mostrarMensaje("Debe seleccionar un registro...");
+        }else {
+            //verificar que no sea nulo
+            if (LibroTexto.getText().equals("")){
+                mostrarMensaje("Proporciona el nombre del libro...");
+                LibroTexto.requestFocusInWindow();
+                return;
+            }
+            //se llena el objeto libro a actualizar
+            int idLibro = Integer.parseInt(idTexto.getText());
+            var nombreLibro = LibroTexto.getText();
+            var autor = textField1.getText();
+            var precio = Double.parseDouble(precioTexto.getText());
+            var existencia = Integer.parseInt(ExistenciasTexto.getText());
+            var libro = new Libro(idLibro,nombreLibro,autor,precio,existencia);
+
+            libroServicio.guardarLibro(libro);
+            mostrarMensaje("Se modifico el Libro...");
+            limpiarFormulario();
+            listarLibros();
+
+        }
     }
     private void limpiarFormulario(){
         LibroTexto.setText("");
