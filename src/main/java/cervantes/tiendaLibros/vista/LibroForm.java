@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @Component
 public class LibroForm  extends JFrame {
@@ -16,8 +20,11 @@ public class LibroForm  extends JFrame {
     private JPanel panel;
     private JTable tablaLibros;
     private JScrollPane tabla;
+
+
+    private JTextField idTexto;
     private JTextField LibroTexto;
-    private JTextField textField1;
+    private JTextField textField1; // autor
     private JTextField precioTexto;
     private JTextField ExistenciasTexto;
     private JButton agregarButton;
@@ -33,7 +40,18 @@ public class LibroForm  extends JFrame {
         iniciarForma();
 
         agregarButton.addActionListener(e -> agregarLibro());
+        tablaLibros.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                cargarLibroSeleccionado();
+            }
+        });
+        modificarButton.addActionListener(new ActionListener(e->modificarLibro()));
     }
+
+
 
     private void iniciarForma(){
         setContentPane(panel);
@@ -73,6 +91,32 @@ public class LibroForm  extends JFrame {
 
     }
 
+
+    private void cargarLibroSeleccionado(){
+        var renglon = tablaLibros.getSelectedRow();
+        if (renglon!= -1){
+            //regresa -1 si no se selecciono ningun registro
+            String idLibro = tablaLibros.getModel().getValueAt(renglon,0).toString();
+            idTexto.setText(idLibro);
+
+            String nombreLibro= tablaLibros.getModel().getValueAt(renglon,1).toString();
+            LibroTexto.setText(nombreLibro);
+
+            String autor = tablaLibros.getModel().getValueAt(renglon,2).toString();
+            textField1.setText(autor);
+
+            String precio =tablaLibros.getModel().getValueAt(renglon,3).toString();
+            precioTexto.setText(precio);
+
+            String existencias=tablaLibros.getModel().getValueAt(renglon,4).toString();
+            ExistenciasTexto.setText(existencias);
+
+        }
+    }
+
+    private void modificarLibro(){
+        
+    }
     private void limpiarFormulario(){
         LibroTexto.setText("");
         textField1.setText("");
@@ -88,6 +132,11 @@ public class LibroForm  extends JFrame {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        //creamos el elemento id oculto
+
+        idTexto = new JTextField("");
+        idTexto.setVisible(false);
+
 
         this.tablaModeloLibros = new DefaultTableModel(0,5);
         String[] cabeceros = {"Id","Libros","Autor","Precio","Existencia"};
